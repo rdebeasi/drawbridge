@@ -7,12 +7,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">
+      <router-link class="navbar-brand" to="/">
         <div class="navbar-brand-org">CASL</div>
         <div class="navbar-brand-product">
           Drawbridge
         </div>
-      </a>
+      </router-link>
     </div>
     <div class="collapse navbar-collapse navbar-collapse-1">
       <ul class="nav navbar-nav navbar-utility">
@@ -64,7 +64,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-primary">
         <li>
-          <a href="#">Reset Password</a>
+          <router-link to="/change-password/">Change Password</router-link>
         </li>
         <li class="active">
           <a href="#">Manage Account</a>
@@ -82,7 +82,7 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style scoped>
 /* Mimic the standard logo style to start. Eventually, we should create an SVG logo. */
 .navbar-brand-org,
 .navbar-brand-product {
