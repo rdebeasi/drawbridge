@@ -3,10 +3,9 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-// import store from './store';
+import store from './store';
 
 Vue.config.productionTip = false;
-console.log(process.env.FOO);
 
 /* eslint-disable no-new */
 new Vue({
@@ -14,4 +13,11 @@ new Vue({
   router,
   template: '<App/>',
   components: { App },
+});
+
+console.log(store);
+
+store.commit('logIn', {
+  user: process.env.IDM_USER,
+  password: process.env.IDM_PASSWORD,
 });
