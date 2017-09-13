@@ -21,6 +21,10 @@ all the available environment variables.
 
 OS and dotenv environment variable support isn't part of the stock vue-webpack setup; these features
 
+## Security
+
+For simplicity, we're currently storing IDM login info as environment variables that are exposed to the client. In the future, we should authenticate with the IDM via OAuth instead.
+
 ## Build Setup
 
 ``` bash
