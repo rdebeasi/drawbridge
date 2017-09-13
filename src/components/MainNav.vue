@@ -66,11 +66,8 @@
         <li>
           <router-link to="/change-password/">Change Password</router-link>
         </li>
-        <li class="active">
-          <a href="#">Manage Account</a>
-        </li>
         <li>
-          <a href="#">And Another</a>
+          <a href="#">Manage Account</a>
         </li>
       </ul>
     </div>
