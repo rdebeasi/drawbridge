@@ -4,6 +4,7 @@ var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var webpack = require('webpack')
 var dotenv = require('dotenv').config()
+var systemVars = require('../config/system')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -75,6 +76,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.EnvironmentPlugin(['PWD', 'FOO']),
+    new webpack.EnvironmentPlugin(systemVars),
   ]
 }
