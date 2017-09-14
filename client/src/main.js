@@ -15,7 +15,7 @@ new Vue({
   components: { App },
 });
 
-console.log(store);
+console.log(process.env.IDM_USER);
 
 store.commit('logIn', {
   user: process.env.IDM_USER,
