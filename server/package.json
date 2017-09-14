@@ -1,0 +1,14 @@
+{
+  "name": "drawbridge-server",
+  "version": "0.0.1",
+  "description": "A proxy server to connect the client to the IDM",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Red Hat Open Innovation Labs",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "http-proxy": "^1.16.2"
+  }
+}
