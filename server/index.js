@@ -4,8 +4,9 @@ var httpProxy = require('http-proxy');
 
 dotenv.config();
 
-var idmHost = process.env.IDM_HOST;
-var clientHost= process.env.CLIENT_HOST;
+// We expect these values to not have a trailing slash.
+var idmHost = process.env.IDM_BASE_URL;
+var clientHost = process.env.CLIENT_BASE_URL;
 var proxy;
 var proxyOptions;
 var server;
@@ -22,9 +23,9 @@ if (!clientHost) {
 proxyOptions = {
   secure: false,
   changeOrigin: true,
-  // Redirect to HTTP to avoid certificate errors.
   // We should set up HTTPS in an OpenShift route to ensure that passwords
   // aren't sent in the clear.
+  // Redirect to HTTP to avoid certificate errors.
   protocolRewrite: 'http',
 }
 
@@ -34,13 +35,13 @@ proxy = httpProxy.createProxyServer(proxyOptions);
 proxy.on('proxyReq', function(proxyReq, req, res, options) {
   console.log('proxy req');
   // TODO: only allow client host
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', clientHost);
 });
 
 var server = http.createServer(function(req, res) {
   if (req.method === 'OPTIONS') {
     var headers = {};
-    headers["Access-Control-Allow-Origin"] = '*';
+    headers["Access-Control-Allow-Origin"] = clientHost;
     headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
     headers["Access-Control-Allow-Credentials"] = false;
     headers["Access-Control-Max-Age"] = '86400'; // 24 hours
@@ -51,7 +52,7 @@ var server = http.createServer(function(req, res) {
   }
   // Non-options request; let the IDM handle it
   proxy.web(req, res, {
-    target: 'https://' + idmHost
+    target: idmHost
   });
 });
 
