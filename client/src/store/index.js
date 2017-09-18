@@ -5,9 +5,10 @@ import Vue from 'vue';
 import axios from 'axios';
 
 Vue.use(Vuex);
-axios.defaults.baseURL = `https://${process.env.IDM_HOST}/ipa/session`;
+// TODO: Switch to HTTPS
+axios.defaults.baseURL = `http://${process.env.IDM_HOST}/ipa/session`;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.referrer = `https://${process.env.IDM_HOST}/ipa/`;
+axios.defaults.referrer = `http://${process.env.IDM_HOST}/ipa/`;
 
 function createEmptyUser() {
   // We could use object.Assign here, but this is a little simpler and works in old brwosers.
@@ -25,11 +26,12 @@ const store = new Vuex.Store({
   },
   mutations: {
     logIn(state, payload) {
-      axios.post('/login_password', {
-        user: payload.user,
-        password: payload.password,
-      })
+      const params = new URLSearchParams();
+      params.append('user', payload.user);
+      params.append('password', payload.password);
+      axios.post('/login_password', params)
       .then((response) => {
+        console.log('logged in');
         console.log(response);
       });
     },
