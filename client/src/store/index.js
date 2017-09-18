@@ -1,8 +1,11 @@
+/* Vuex mutations modify their params, so we'll turn off the eslint rule that
+ * disallows this behavior. */
 /* eslint no-param-reassign: "off" */
 
 import Vuex from 'vuex';
 import Vue from 'vue';
 import axios from 'axios';
+import qs from 'qs';
 
 Vue.use(Vuex);
 // TODO: Switch to HTTPS
@@ -26,9 +29,10 @@ const store = new Vuex.Store({
   },
   mutations: {
     logIn(state, payload) {
-      const params = new URLSearchParams();
-      params.append('user', payload.user);
-      params.append('password', payload.password);
+      const params = qs.stringify({
+        user: payload.user,
+        password: payload.password,
+      });
       axios.post('/login_password', params)
       .then((response) => {
         console.log('logged in');
